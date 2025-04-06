@@ -14,6 +14,20 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
 
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        return httpSecurity
+                .csrf(customizer -> customizer.disable())
+                .authorizeHttpRequests(req -> req.anyRequest().authenticated())
+                .httpBasic(Customizer.withDefaults())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .build();
+    }
+
+
+
+
+    /*
     // now it will not need userName & password
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -32,4 +46,6 @@ public class SecurityConfig {
 
         return httpSecurity.build();
     }
+
+     */
 }
