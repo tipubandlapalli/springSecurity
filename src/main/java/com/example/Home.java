@@ -11,6 +11,6 @@ import java.net.http.HttpRequest;
 public class Home {
     @GetMapping("/")
     public String greet (HttpServletRequest request){
-        return "welcome to telusko !!!"+request.getSession().getId().toString();
+        return "welcome to telusko !!! " + "\n" + request.getSession().getId();
     }
 }

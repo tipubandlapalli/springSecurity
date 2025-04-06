@@ -1,5 +1,7 @@
 package com.example;
 
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +20,10 @@ public class StudentController {
     @GetMapping("/students")
     public List<StudentEntity> getStudent(){
         return students;
+    }
+    @GetMapping("students/csrf-token")
+    public CsrfToken getCsrftoken(HttpServletRequest request){
+        return (CsrfToken) request.getAttribute("_csrf");
     }
     @PostMapping("/students")
     public StudentEntity addStudent(@RequestBody StudentEntity student){
