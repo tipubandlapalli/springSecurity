@@ -13,6 +13,8 @@ public class SecurityConfig {
     // now it will not need userName & password
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.csrf(c -> c.disable());
+        // now not even csrf-needed for post put delete request
         return httpSecurity.build();
     }
 }
