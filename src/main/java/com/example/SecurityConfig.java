@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -19,9 +20,14 @@ public class SecurityConfig {
         // we our config now
         httpSecurity.authorizeHttpRequests(req -> req.anyRequest().authenticated());
         //for browser to display default login form
-        httpSecurity.formLogin(Customizer.withDefaults());
+        // httpSecurity.formLogin(Customizer.withDefaults());
         // for post man to take user and password from auth basic
         httpSecurity.httpBasic(Customizer.withDefaults());
+        // making session stateless; everytime the user send a request new session is created means needs authorization
+        // as we enabled browser to send login form it will throw login form continues
+        // for this not to happen comment it
+        httpSecurity.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
         return httpSecurity.build();
     }
 }
